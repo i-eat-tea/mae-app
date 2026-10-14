@@ -1,0 +1,6 @@
+{
+  "name": "ម៉ែ — by FlowErs",
+  "description": "កម្មវិធីកំដរនិងថែទាំស្រ្តីមានផ្ទៃពោះលើកដំបូង — A warm, mother-like pregnancy companion for first-time mothers in Cambodia.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
