@@ -66,50 +66,13 @@ export const Navbar: React.FC = () => {
             type="button"
             onClick={() => setActiveTab('resources')}
             className={`transition-colors py-1 ${
-              activeTab === 'home'
+              activeTab === 'resources'
                 ? 'text-[#233125] font-semibold border-b-2 border-[#88A04D]'
                 : 'hover:text-[#233125]'
             }`}
           >
-            {t('ទំព័រដើម', 'Home')}
+            {t('Resources', 'Resources')}
           </button>
-
-          <button
-            type="button"
-            onClick={() => setActiveTab('resources')}
-            className={`transition-colors py-1 ${
-              activeTab === 'journey'
-                ? 'text-[#233125] font-semibold border-b-2 border-[#88A04D]'
-                : 'hover:text-[#233125]'
-            }`}
-          >
-            {t('ដំណើររបស់កូន', 'My Journey')}
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setActiveTab('resources')}
-            className={`transition-colors py-1 ${
-              activeTab === 'plan'
-                ? 'text-[#233125] font-semibold border-b-2 border-[#88A04D]'
-                : 'hover:text-[#233125]'
-            }`}
-          >
-            {t('គម្រោងរបស់ខ្ញុំ', 'My Plan')}
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setActiveTab('resources')}
-            className={`transition-colors py-1 ${
-              activeTab === 'explore'
-                ? 'text-[#233125] font-semibold border-b-2 border-[#88A04D]'
-                : 'hover:text-[#233125]'
-            }`}
-          >
-            {t('ស្វែងយល់', 'Explore')}
-          </button>
-
           <button
             type="button"
             onClick={() => setActiveTab('settings')}
@@ -119,7 +82,7 @@ export const Navbar: React.FC = () => {
                 : 'hover:text-[#233125]'
             }`}
           >
-            {t('គណនី', 'Profile')}
+            {t('Settings', 'Settings')}
           </button>
         </nav>
 
