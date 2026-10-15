@@ -35,7 +35,7 @@ export const Navbar: React.FC = () => {
         <div className="flex items-center gap-2">
           <button
             type="button"
-            onClick={() => setActiveTab('home')}
+            onClick={() => setActiveTab('resources')}
             className="flex items-center gap-2 group text-left min-h-[44px] min-w-[44px] py-1"
             aria-label="ម៉ែ — by FlowErs Home"
           >
@@ -64,7 +64,7 @@ export const Navbar: React.FC = () => {
         <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-[#5F6E60]">
           <button
             type="button"
-            onClick={() => setActiveTab('home')}
+            onClick={() => setActiveTab('resources')}
             className={`transition-colors py-1 ${
               activeTab === 'home'
                 ? 'text-[#233125] font-semibold border-b-2 border-[#88A04D]'
@@ -76,7 +76,7 @@ export const Navbar: React.FC = () => {
 
           <button
             type="button"
-            onClick={() => setActiveTab('journey')}
+            onClick={() => setActiveTab('resources')}
             className={`transition-colors py-1 ${
               activeTab === 'journey'
                 ? 'text-[#233125] font-semibold border-b-2 border-[#88A04D]'
@@ -88,7 +88,7 @@ export const Navbar: React.FC = () => {
 
           <button
             type="button"
-            onClick={() => setActiveTab('plan')}
+            onClick={() => setActiveTab('resources')}
             className={`transition-colors py-1 ${
               activeTab === 'plan'
                 ? 'text-[#233125] font-semibold border-b-2 border-[#88A04D]'
@@ -100,7 +100,7 @@ export const Navbar: React.FC = () => {
 
           <button
             type="button"
-            onClick={() => setActiveTab('explore')}
+            onClick={() => setActiveTab('resources')}
             className={`transition-colors py-1 ${
               activeTab === 'explore'
                 ? 'text-[#233125] font-semibold border-b-2 border-[#88A04D]'
@@ -112,9 +112,9 @@ export const Navbar: React.FC = () => {
 
           <button
             type="button"
-            onClick={() => setActiveTab('profile')}
+            onClick={() => setActiveTab('settings')}
             className={`transition-colors py-1 ${
-              activeTab === 'profile'
+              activeTab === 'settings'
                 ? 'text-[#233125] font-semibold border-b-2 border-[#88A04D]'
                 : 'hover:text-[#233125]'
             }`}
@@ -166,7 +166,7 @@ export const Navbar: React.FC = () => {
           {isAuthenticated ? (
             <button
               type="button"
-              onClick={() => setActiveTab('profile')}
+              onClick={() => setActiveTab('settings')}
               className="flex items-center gap-1.5 min-h-[44px] pl-1.5 pr-2.5 sm:pr-3 py-1.5 rounded-full bg-white border border-[#E5EADF] hover:border-[#88A04D]/40 text-xs font-medium text-[#233125] transition-colors"
               aria-label="Open profile"
             >

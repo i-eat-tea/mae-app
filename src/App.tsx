@@ -8,11 +8,8 @@ import { AppProvider, useApp } from './context/AppContext';
 import { PlanProvider } from './context/PlanContext';
 import { Navbar } from './components/Navbar';
 import { BottomNav } from './components/BottomNav';
-import { HomeScreen } from './screens/HomeScreen';
-import { JourneyScreen } from './screens/JourneyScreen';
-import { PlanScreen } from './screens/PlanScreen';
 import { ResourcesScreen } from './screens/ResourcesScreen';
-import { ProfileScreen } from './screens/ProfileScreen';
+import { ProfileScreen as SettingsScreen } from './screens/SettingsScreen';
 import { LandingScreen } from './screens/LandingScreen';
 import { AuthModal } from './components/AuthModal';
 import { OnboardingModal } from './components/OnboardingModal';
@@ -44,23 +41,17 @@ const AppContent: React.FC = () => {
   // Screen selection
   const renderCurrentScreen = () => {
     // If not authenticated and activeTab is 'home', show LandingScreen with easy access to Demo Mama & Sign In
-    if (!isAuthenticated && activeTab === 'home') {
+    if (!isAuthenticated && activeTab === 'resources') {
       return <LandingScreen />;
     }
 
     switch (activeTab) {
-      case 'home':
-        return <HomeScreen />;
-      case 'journey':
-        return <JourneyScreen />;
-      case 'plan':
-        return <PlanScreen />;
-      case 'explore':
+      case 'resources':
         return <ResourcesScreen />;
-      case 'profile':
-        return <ProfileScreen />;
+      case 'settings':
+        return <SettingsScreen />;
       default:
-        return <HomeScreen />;
+        return <ResourcesScreen />;
     }
   };
 

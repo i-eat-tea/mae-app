@@ -12,11 +12,8 @@ export const BottomNav: React.FC = () => {
   const { activeTab, setActiveTab, t } = useApp();
 
   const navItems = [
-    { id: 'home' as const, labelKh: 'ទំព័រដើម', labelEn: 'Home', icon: Home },
-    { id: 'journey' as const, labelKh: 'ដំណើរ', labelEn: 'Journey', icon: Compass },
-    { id: 'plan' as const, labelKh: 'គម្រោង', labelEn: 'My Plan', icon: CalendarCheck },
-    { id: 'explore' as const, labelKh: 'ស្វែងយល់', labelEn: 'Explore', icon: Search },
-    { id: 'profile' as const, labelKh: 'គណនី', labelEn: 'Profile', icon: User },
+    { id: 'resources' as const, labelKh: 'ស្វែងយល់', labelEn: 'Resources', icon: Search },
+    { id: 'settings' as const, labelKh: 'ការកំណត់', labelEn: 'Settings', icon: User },
   ];
 
   return (

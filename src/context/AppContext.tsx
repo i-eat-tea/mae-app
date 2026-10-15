@@ -59,7 +59,7 @@ const STORAGE_KEY_ANALYTICS = 'mae_analytics_events';
 const STORAGE_KEY_LANG = 'mae_user_lang';
 const STORAGE_KEY_CONSENT = 'mae_analytics_consent';
 
-export type TabKey = 'home' | 'journey' | 'plan' | 'explore' | 'profile' | 'resources';
+export type TabKey = 'resources' | 'settings';
 
 /** 'unset' = the user has not answered the cookie/data banner yet (nothing is tracked). */
 export type ConsentStatus = 'unset' | 'granted' | 'denied';
@@ -273,7 +273,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // UI States
   const [currentWeek, setCurrentWeek] = useState<number>(() => user?.pregnancy_week || 9);
-  const [activeTab, setActiveTabState] = useState<TabKey>('home');
+  const [activeTab, setActiveTabState] = useState<TabKey>('resources');
   const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authModalMode, setAuthModalMode] = useState<'login' | 'signup'>('signup');
@@ -305,12 +305,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const toastTimerRef = React.useRef<any>(null);
 
   const setActiveTab = (tab: TabKey) => {
-    const target = tab === 'resources' ? 'explore' : tab;
+    const target = tab;
     setActiveTabState(target);
-    if (target === 'journey') {
-      logEvent('journey_opened', undefined, currentWeek);
-    } else if (target === 'explore') {
-      logEvent('explore_opened', undefined, currentWeek);
+    if (target === 'resources') {
+      logEvent('resources_opened', undefined, currentWeek);
     }
   };
 
@@ -773,7 +771,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     supabase.auth.signOut();
     setUser(null);
     setCurrentWeek(9);
-    setActiveTabState('home');
+    setActiveTabState('resources');
     showToast(t('អ្នកបានចាកចេញដោយសុវត្ថិភាព។ ថែរក្សាសុខភាពណា 🌸', 'You have logged out peacefully. Take care 🌸'));
   };
 
@@ -1000,7 +998,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setReadResourceIds([]);
       setAnalyticsEvents([]);
       setCurrentWeek(9);
-      setActiveTabState('home');
+      setActiveTabState('resources');
 
       // 6. Sign out of Supabase auth
       await supabase.auth.signOut();
