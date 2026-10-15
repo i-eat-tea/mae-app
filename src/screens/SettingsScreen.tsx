@@ -16,6 +16,7 @@ import { User, Bell, Globe, LogOut, Calendar, Heart, Trash2, ShieldCheck, AlertT
 import { useApp } from '../context/AppContext';
 import { UserLanguage, NotificationPreference, DueDateMethod } from '../types';
 import { TelegramLink } from '../components/TelegramLink';
+import { FlowersLink } from '../components/FlowersLink';
 import { DueDateModal } from '../components/DueDate';
 
 export const ProfileScreen: React.FC = () => {
@@ -123,182 +124,6 @@ export const ProfileScreen: React.FC = () => {
         </p>
       </div>
 
-      {/* 1. Name & Basic Info */}
-      <section className="rounded-3xl bg-white border border-[#E5EADF] p-5 sm:p-6 shadow-xs space-y-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-[#EBF1E4] border border-[#88A04D]/30 text-[#88A04D] font-bold text-lg flex items-center justify-center">
-              {user.name.charAt(0).toUpperCase()}
-            </div>
-            <div>
-              {isEditing ? (
-                <div className="flex items-center gap-2">
-                  <input
-                    type="text"
-                    value={editName}
-                    onChange={(e) => setEditName(e.target.value)}
-                    className="px-3 py-1.5 rounded-xl border border-[#88A04D] text-sm text-[#233125] focus:outline-none"
-                  />
-                  <button
-                    type="button"
-                    onClick={handleSaveName}
-                    className="px-3 py-1.5 rounded-xl bg-[#88A04D] text-white text-xs font-semibold"
-                  >
-                    {t('រក្សាទុក', 'Save')}
-                  </button>
-                </div>
-              ) : (
-                <div className="flex items-center gap-2">
-                  <h2 className="text-base sm:text-lg font-bold text-[#233125]">
-                    {user.name}
-                  </h2>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setEditName(user.name);
-                      setIsEditing(true);
-                    }}
-                    className="text-xs text-[#88A04D] hover:underline"
-                  >
-                    ({t('កែប្រែ', 'edit')})
-                  </button>
-                </div>
-              )}
-              <p className="text-xs text-[#5F6E60]">{user.email}</p>
-            </div>
-          </div>
-        </div>
-
-        {/* 2. Pregnancy Week / Due Date */}
-        <div className="pt-4 border-t border-[#E5EADF] space-y-2.5">
-          <div className="flex items-center justify-between">
-            <label className="block text-xs font-bold text-[#233125]">
-              {t('សប្ដាហ៍នៃការពពោះ និងថ្ងៃសម្រាល', 'Pregnancy Week & Due Date')}
-            </label>
-            <button
-              type="button"
-              onClick={() => setIsDueDateModalOpen(true)}
-              className="text-xs font-semibold text-[#88A04D] hover:text-[#5C7034] underline underline-offset-2 inline-flex items-center gap-1"
-            >
-              <Calendar className="w-3.5 h-3.5" />
-              <span>{t('កែប្រែថ្ងៃសម្រាល (Calculator)', 'Change due date')}</span>
-            </button>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3">
-            <select
-              value={currentWeek}
-              onChange={(e) => {
-                const w = parseInt(e.target.value, 10);
-                setCurrentWeek(w);
-                updateUserPreferences({ pregnancy_week: w });
-              }}
-              className="px-3.5 py-2 rounded-xl bg-[#FAF9F5] border border-[#E5EADF] text-xs sm:text-sm text-[#233125] font-semibold focus:border-[#88A04D]"
-            >
-              {Array.from({ length: 40 }, (_, i) => i + 1).map((w) => (
-                <option key={w} value={w}>
-                  {t(`សប្ដាហ៍ទី ${w} (ខែទី ${Math.min(9, Math.ceil(w / 4.4))})`, `Week ${w}`)}
-                </option>
-              ))}
-            </select>
-
-            {user.due_date && (
-              <span className="text-xs text-[#5F6E60] bg-[#FAF9F5] px-3 py-2 rounded-xl border border-[#E5EADF]">
-                {t('ថ្ងៃសម្រាល៖', 'Due date:')}{' '}
-                <strong className="text-[#233125]">{user.due_date}</strong>
-                {user.due_date_method && (
-                  <span className="text-[10px] text-[#88A04D] ml-1">
-                    ({user.due_date_method})
-                  </span>
-                )}
-              </span>
-            )}
-          </div>
-        </div>
-
-        {/* 2b. Occupation & First Pregnancy (if recorded) */}
-        {(user.occupation || user.is_first_pregnancy !== undefined) && (
-          <div className="pt-3 border-t border-[#E5EADF] flex flex-wrap gap-2 text-xs">
-            {user.is_first_pregnancy !== undefined && (
-              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#FAF9F5] border border-[#E5EADF] text-[#5F6E60]">
-                <Baby className="w-3.5 h-3.5 text-[#88A04D]" />
-                <span>
-                  {user.is_first_pregnancy
-                    ? t('ពពោះលើកដំបូង', 'First pregnancy')
-                    : t(`ធ្លាប់មានកូន (${user.children_count || 1})`, `Has children (${user.children_count || 1})`)}
-                </span>
-              </span>
-            )}
-
-            {user.occupation && (
-              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#FAF9F5] border border-[#E5EADF] text-[#5F6E60]">
-                <Briefcase className="w-3.5 h-3.5 text-[#88A04D]" />
-                <span>{user.occupation}</span>
-              </span>
-            )}
-          </div>
-        )}
-      </section>
-
-      {/* 2. Membership & Plan Status */}
-      <section className="rounded-3xl bg-white border border-[#E5EADF] p-5 sm:p-6 shadow-xs space-y-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#5C7034]">
-            <Sparkles className="w-4 h-4 text-[#88A04D]" />
-            <span>{t('កម្រិតនៃការប្រើប្រាស់ (Plan Status)', 'Plan Status')}</span>
-          </div>
-
-          <span
-            className={`text-xs px-3 py-1 rounded-full font-bold inline-flex items-center gap-1.5 ${
-              isPremium
-                ? 'bg-[#EBF1E4] text-[#5C7034] border border-[#88A04D]/30'
-                : 'bg-[#FAF9F5] text-[#5F6E60] border border-[#E5EADF]'
-            }`}
-          >
-            {isPremium ? (
-              <>
-                <span>🌸</span>
-                <span>{t('គណនីពិសេស (Premium · My Plan)', 'Premium (My Plan)')}</span>
-              </>
-            ) : (
-              <>
-                <span>🌱</span>
-                <span>{t('គណនីឥតគិតថ្លៃ (Free Plan)', 'Free Plan')}</span>
-              </>
-            )}
-          </span>
-        </div>
-
-        <div className="text-xs text-[#5F6E60] leading-relaxed">
-          {isPremium ? (
-            <p className="text-[#233125]">
-              {t(
-                'អ្នកមានសិទ្ធិប្រើប្រាស់ពេញលេញលើមុខងារ «គម្រោងរបស់ខ្ញុំ» (My Plan), សាររំលឹកតាម Telegram និងការនាំចេញប្រតិទិន។',
-                'You have full access to My Plan, Telegram morning alerts, and Calendar export.'
-              )}
-            </p>
-          ) : (
-            <p>
-              {t(
-                'អ្នកអាចអានអត្ថបទសុខភាព និងស្តាប់សារសំឡេងទាំងអស់ដោយឥតគិតថ្លៃ។ សម្រាប់អ្នកចង់សាកល្បងមុខងារ My Plan អាចស្នើសុំដើម្បីឱ្យក្រុមការងារបើកជូនដោយផ្ទាល់។',
-                'All educational resources and audio messages are 100% free. You can request free beta access to My Plan.'
-              )}
-            </p>
-          )}
-        </div>
-
-        {!isPremium && (
-          <div className="pt-1">
-            <button
-              type="button"
-              onClick={() => setIsUpgradeModalOpen(true)}
-              className="min-h-[40px] px-4 py-2 rounded-full bg-[#88A04D] hover:bg-[#5C7034] text-white text-xs font-semibold shadow-2xs inline-flex items-center gap-1.5 transition-colors cursor-pointer"
-            >
-              <span>{t('ដំឡើងគម្រោង / ភ្ជាប់ Telegram 🌸', 'Purchase / Upgrade Plan 🌸')}</span>
-            </button>
-          </div>
-        )}
-      </section>
 
       {/* 3. Language Selection (Khmer-First) */}
       <section className="rounded-3xl bg-white border border-[#E5EADF] p-5 sm:p-6 shadow-xs space-y-3">
@@ -392,6 +217,9 @@ export const ProfileScreen: React.FC = () => {
       {/* 5. Telegram Daily Reminders Integration */}
       <section>
         <TelegramLink />
+      <div class="mt-4">
+        <FlowersLink />
+      </div>
       </section>
 
       {/* 6. Privacy & Research Data Consent */}

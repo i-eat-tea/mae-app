@@ -61,7 +61,7 @@ export const TelegramLink: React.FC<TelegramLinkProps> = ({ variant = 'card', on
 
   const pollIntervalRef = useRef<any>(null);
 
-  const botUsername = (import.meta.env.VITE_TELEGRAM_BOT_USERNAME || 'MaeFlowErsBot').replace('@', '');
+  const botUsername = 'FlowErs168bot';
 
   // 1. Fetch current Telegram link for user
   const fetchLinkStatus = async () => {
