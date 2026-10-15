@@ -62,5 +62,13 @@ export function buildNodes(): InfoNode[] {
       });
     }
   }
-  return nodes;
+  // Reorder: warning signs first, then resources by original order, then focus, then weekly
+  const sorted = [...nodes].sort((a,b) => {
+    if (a.safetyCritical && !b.safetyCritical) return -1;
+    if (!a.safetyCritical && b.safetyCritical) return 1;
+    if (a.kind === 'resource' && b.kind === 'resource') return a.id.localeCompare(b.id);
+    const kindOrder = { resource: 1, focus: 2, weekly: 3 };
+    return kindOrder[a.kind] - kindOrder[b.kind];
+  });
+  return sorted;
 }
